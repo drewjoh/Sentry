@@ -15,7 +15,7 @@
 
 class Sentry
 {
-    const VERSION = '0.1.0';
+    const VERSION = '0.2.0';
 
     const DEBUG   = 'debug';
     const INFO    = 'info';
@@ -50,7 +50,10 @@ class Sentry
      * @param array $tags Array of tags to apply to the next message to be sent
      */
     public static function tags($tags = null) {
-        self::$tags = is_array($tags) ? $tags : null;
+        if(is_array($tags))
+            self::$tags = array_merge($tags, self::$tags);
+        
+        return new self;
     }
     
     /**
